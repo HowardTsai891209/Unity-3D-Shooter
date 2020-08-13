@@ -17,6 +17,7 @@ public class PlayerShooting : MonoBehaviour
     public float timeBetweenBullets = 0.15f;//每次發射的間距
     private float effectsDisplaytime = 0.2f;//開槍特效持續時間
     float timer;
+
     void Awake()
     {
         shootableMask = LayerMask.GetMask("Enemy");

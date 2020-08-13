@@ -8,6 +8,12 @@ public class ThirdCamFollow : MonoBehaviour
     public GameObject FollowCamera;         //跟隨相機
     public float CameraSmoothTime = 0;
     private Vector3 velocity = Vector3.zero;
+    private Vector3 offset;
+    /*private void Start()
+    {
+        offset = transform.position - thirdPersonPlayer.transform.position;//兩個相減得到向量
+    }*/
+
     void Update()
     {
         //相機跟隨旋轉
@@ -35,4 +41,8 @@ public class ThirdCamFollow : MonoBehaviour
             Time.deltaTime
         );
     }
+    /*private void FixedUpdate()
+    {
+        transform.position = thirdPersonPlayer.transform.position + offset;//將camera的位置加上向量 兩者會維持一樣的距離
+    }*/
 }

@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviour
     public delegate void PlayerDeathAction();//delegate幫忙做玩家死亡後的指令
     public static event PlayerDeathAction PlayerDeathEvent;
 
+    private FinalScoreManager finalScoreManager;
     private void Awake()
     {
         healthSlider.maxValue = startingHealth;
@@ -34,6 +35,9 @@ public class PlayerHealth : MonoBehaviour
         }else {
             healthSlider.value = startingHealth;
         }
+
+        GameObject finalScoreManagerObj = GameObject.FindGameObjectWithTag("FianlScoreTag");
+        finalScoreManager = finalScoreManagerObj.GetComponent<FinalScoreManager>();
     }
 
     public void TakeDamage(int amount){//受傷害
@@ -44,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
         if(currentHealth <= 0)
         {
+            finalScoreManager.PopScore();
             Death();
         }
     }

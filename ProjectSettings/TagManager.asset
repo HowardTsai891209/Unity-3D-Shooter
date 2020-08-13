@@ -4,11 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - ThirdCamera
   - CountDownTag
+  - FianlScoreTag
+  - ThirdCamera
   - enemyTag
   - enemyManagerTag
-  - FinalScoreTag
   layers:
   - Default
   - TransparentFX

@@ -14,9 +14,8 @@ public class EnemyHealth : MonoBehaviour
     public AudioClip deadClip;//先把死亡音效放到Enemy內 以便切換
     private AudioSource enemyAudio;//敵人身上所有音效 在這裡切換
     private ParticleSystem hiyParticle;//敵人被打到的粒子特效
-    private static int enemyAliveNumber;
+    public int enemyAliveNumber;
     private FinalScoreManager finalScoreManager;
-
 
     public int score = 10;//敵人的分數
     private void Awake()
@@ -24,15 +23,17 @@ public class EnemyHealth : MonoBehaviour
         anim = GetComponent<Animator>();//取得敵人的Animator
         currentHealth = startHelth;//設置敵人血量
         enemyAudio = GetComponent<AudioSource>();//取得敵人的AudioSource
-        hiyParticle = GetComponentInChildren<ParticleSystem>();//取得敵人的ParticleSystem
+        hiyParticle = GetComponentInChildren<ParticleSystem>();//取得敵人的ParticleSystem 
 
-        GameObject enemyManagerObj = GameObject.FindGameObjectWithTag("enemyManagerTag");
-        enemyAliveNumber = enemyManagerObj.GetComponent<EnemyManager>().tempAliveNumber;
-
-        GameObject finalScoreManagerObj = GameObject.FindGameObjectWithTag("FinalScoreTag");
+        GameObject finalScoreManagerObj = GameObject.FindGameObjectWithTag("FianlScoreTag");
         finalScoreManager = finalScoreManagerObj.GetComponent<FinalScoreManager>();
+
+        GameObject enemyHealthObj = GameObject.FindGameObjectWithTag("enemyManagerTag");
+        //enemyAliveNumber = enemyHealthObj.GetComponent<EnemyManager>().enemyNumber + 1;
     }
-    private void Death()//敵人死亡function
+
+
+    public void Death()//敵人死亡function
     {
         isDead = true;//敵人死亡
         enemyAudio.clip = deadClip;//將enemyAudio切換成deadClip
@@ -43,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<EnemyAttack>().enabled = false;
         ScoreManager.score += score;
         FinalScoreManager.finalScore += score;
-        enemyAliveNumber -= 1;
+        //enemyAliveNumber -= 1;     
     }
 
     public void takeDamage(int amount, Vector3 postion)//敵人受到傷害
@@ -66,7 +67,9 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Update()
     {
-        if(enemyAliveNumber <= 0)
+        //Debug.Log(enemyAliveNumber);
+        if (FinalScoreManager.finalScore >= 200)
+        //if(enemyAliveNumber == 0)
         {
             finalScoreManager.PopScore();
         }
@@ -75,4 +78,5 @@ public class EnemyHealth : MonoBehaviour
             transform.Translate(Vector3.down * Time.deltaTime);//Translate讓物體移動 單純移動無操作可放Update
         }
     }
+
 }
